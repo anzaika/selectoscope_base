@@ -122,17 +122,8 @@ RUN mkdir -p /usr/src/gblocks \
 # fastcodeml-source #
 #####################
 
-# ENV BLAS_LIB_DIR
-# ENV LAPACK_LIB_DIR
-# ENV MKL_INCLUDE_DIR
-# ENV NLOPT_INCLUDE_DIR
-# ENV NLOPT_LIB_DIR
-# ENV MATH_LIB_NAMES
-
 ENV BLAS_PREFIX /usr
 ENV BLAS_PATH /usr/src/blas
-
-ENV BOOST_PREFIX /usr/
 
 RUN apt-get install -y gfortran cmake-curses-gui \
   && mkdir -p $BLAS_PATH \
@@ -144,19 +135,25 @@ RUN apt-get install -y gfortran cmake-curses-gui \
   && rm -rf $BLAS_PATH \
   && echo '-------OpenBLAS ready---------'
 
-RUN mkdir /usr/src/boost \
-  && curl -SL "https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.gz" \
-  | tar zxC /usr/src/boost \
-  && cd /usr/src/boost/boost_1_60_0 \
-  && ./bootstrap.sh --prefix=$BOOST_PREFIX \
-  && ./b2 install \
-  && rm -rf /usr/src/boost
-  && echo '-------BOOST ready---------' \
+# RUN mkdir /usr/src/boost \
+#   && curl -SL "https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.gz" \
+#   | tar zxC /usr/src/boost \
+#   && cd /usr/src/boost/boost_1_60_0 \
+#   && ./bootstrap.sh --prefix=$BOOST_PREFIX \
+#   && ./b2 install \
+#   && rm -rf /usr/src/boost
+#   && echo '-------BOOST ready---------' \
 #
-# COPY config/fast_build_config.txt /usr/src/fastcodeml/CMakeLists.txt
-# RUN mkdir -p /usr/src/fastcodeml \
-#   && cd /usr/src \
-#   && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
-#   && cd fastcodeml \
-#   && cmake . \
-#   && make
+
+RUN mkdir -p /usr/src/fastcodeml \
+  && cd /usr/src \
+  && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
+  && cd fastcodeml
+
+COPY fast_build_config.txt /usr/src/fastcodeml/CMakeLists.txt
+
+RUN cd /usr/src/fastcodeml \
+  && cmake . \
+  && make -j"$(nproc)"
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
