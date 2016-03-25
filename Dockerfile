@@ -1,6 +1,6 @@
 FROM anzaika/ruby
 
-ENV TIMESTAMP 13-03-2016
+ENV TIMESTAMP 24-03-2016
 
 # Additional packages
 RUN apt-get update \
