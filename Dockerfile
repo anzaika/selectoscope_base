@@ -122,20 +122,20 @@ RUN mkdir -p /usr/src/gblocks \
 # fastcodeml-source #
 #####################
 
-ENV BLAS_PREFIX /usr
-ENV BLAS_PATH /usr/src/blas
+# ENV BLAS_PREFIX /usr
+# ENV BLAS_PATH /usr/src/blas
 
-RUN apt-get install -y gfortran cmake-curses-gui libopenblas-dev libopenblas-base
+# RUN apt-get install -y gfortran cmake-curses-gui libopenblas-dev libopenblas-base
 
-RUN && mkdir -p $BLAS_PATH \
-  && curl -SL "https://github.com/xianyi/OpenBLAS/archive/v0.2.17.tar.gz" \
-  | tar zxC $BLAS_PATH \
-  && cd /usr/src/blas/OpenBLAS-0.2.17 \
-  && make USE_OPENMP=1 -j"$(nproc)" \
-  && make PREFIX=$BLAS_PREFIX install \
-  && rm -rf $BLAS_PATH \
-  && echo '-------OpenBLAS ready---------'
-
+# RUN && mkdir -p $BLAS_PATH \
+#   && curl -SL "https://github.com/xianyi/OpenBLAS/archive/v0.2.17.tar.gz" \
+#   | tar zxC $BLAS_PATH \
+#   && cd /usr/src/blas/OpenBLAS-0.2.17 \
+#   && make USE_OPENMP=1 -j"$(nproc)" \
+#   && make PREFIX=$BLAS_PREFIX install \
+#   && rm -rf $BLAS_PATH \
+#   && echo '-------OpenBLAS ready---------'
+#
 # RUN mkdir /usr/src/boost \
 #   && curl -SL "https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.gz" \
 #   | tar zxC /usr/src/boost \
