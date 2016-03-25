@@ -125,8 +125,9 @@ RUN mkdir -p /usr/src/gblocks \
 ENV BLAS_PREFIX /usr
 ENV BLAS_PATH /usr/src/blas
 
-RUN apt-get install -y gfortran cmake-curses-gui \
-  && mkdir -p $BLAS_PATH \
+RUN apt-get install -y gfortran cmake-curses-gui libopenblas-dev libopenblas-base\
+
+RUN && mkdir -p $BLAS_PATH \
   && curl -SL "https://github.com/xianyi/OpenBLAS/archive/v0.2.17.tar.gz" \
   | tar zxC $BLAS_PATH \
   && cd /usr/src/blas/OpenBLAS-0.2.17 \
@@ -145,15 +146,25 @@ RUN apt-get install -y gfortran cmake-curses-gui \
 #   && echo '-------BOOST ready---------' \
 #
 
+# RUN mkdir -p /usr/src/fastcodeml \
+#   && cd /usr/src \
+#   && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
+#   && cd fastcodeml
+#
+# COPY fast_build_config.txt /usr/src/fastcodeml/CMakeLists.txt
+#
+# RUN cd /usr/src/fastcodeml \
+#   && cmake . \
+#   && make -j"$(nproc)"
+
+#####################
+#    fastcodeml     #
+#####################
 RUN mkdir -p /usr/src/fastcodeml \
-  && cd /usr/src \
-  && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
-  && cd fastcodeml
-
-COPY fast_build_config.txt /usr/src/fastcodeml/CMakeLists.txt
-
-RUN cd /usr/src/fastcodeml \
-  && cmake . \
-  && make -j"$(nproc)"
+  && curl -SL "ftp://ftp.vital-it.ch/tools/FastCodeML/FastCodeML-1.1.0.tar.gz" \
+  | tar zxC /usr/src/fastcodeml \
+  && cd /usr/src/fastcodeml/FastCodeML-1.1.0 \
+  && mv fast /usr/bin/ \
+  && rm -rf /usr/src/fastcodeml
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
