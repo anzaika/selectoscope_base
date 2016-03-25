@@ -125,7 +125,7 @@ RUN mkdir -p /usr/src/gblocks \
 ENV BLAS_PREFIX /usr
 ENV BLAS_PATH /usr/src/blas
 
-RUN apt-get install -y gfortran cmake-curses-gui libopenblas-dev libopenblas-base\
+RUN apt-get install -y gfortran cmake-curses-gui libopenblas-dev libopenblas-base
 
 RUN && mkdir -p $BLAS_PATH \
   && curl -SL "https://github.com/xianyi/OpenBLAS/archive/v0.2.17.tar.gz" \
@@ -143,7 +143,7 @@ RUN && mkdir -p $BLAS_PATH \
 #   && ./bootstrap.sh --prefix=$BOOST_PREFIX \
 #   && ./b2 install \
 #   && rm -rf /usr/src/boost
-#   && echo '-------BOOST ready---------' \
+#   && echo '-------BOOST ready---------'
 #
 
 # RUN mkdir -p /usr/src/fastcodeml \
