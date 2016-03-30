@@ -99,10 +99,12 @@ RUN mkdir -p /usr/src/phyml \
 #       mafft       #
 #####################
 
+ENV MAFFT_VERSION 7.273
+
 RUN mkdir -p /usr/src/mafft \
-  && curl -SL "http://mafft.cbrc.jp/alignment/software/mafft-7.123-with-extensions-src.tgz" \
+  && curl -SL "http://mafft.cbrc.jp/alignment/software/mafft-$MAFFT_VERSION-with-extensions-src.tgz" \
   | tar xvzC /usr/src/mafft \
-  && cd /usr/src/mafft/mafft-7.123-with-extensions/core \
+  && cd /usr/src/mafft/mafft-$MAFFT_VERSION-with-extensions/core \
   && make -j"$(nproc)" \
   && make install \
   && rm -rf /usr/src/mafft
