@@ -6,15 +6,16 @@ ENV TIMESTAMP 24-03-2016
 RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends bioperl bioperl-run libexpat-dev gengetopt
 
-#####################
-#      BioPerl      #
-#####################
-
-RUN apt-get install -y --no-install-recommends libexpat-dev libcgi-session-perl libclass-base-perl libgd-gd2-perl \
-  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::CPAN;quit' \
-  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Text::Shellwords' \
-  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::LWP' \
-  && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bio::SeqIO'
+# Installing BioPerl this way is very slow and I even don't know if it's the right way
+# #####################
+# #      BioPerl      #
+# #####################
+#
+# RUN apt-get install -y --no-install-recommends libexpat-dev libcgi-session-perl libclass-base-perl libgd-gd2-perl \
+#   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::CPAN;quit' \
+#   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Text::Shellwords' \
+#   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::LWP' \
+#   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bio::SeqIO'
 
 #####################
 #       PAML        #
