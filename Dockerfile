@@ -3,10 +3,8 @@ FROM anzaika/ruby
 ENV TIMESTAMP 24-03-2016
 
 # Additional packages
-RUN apt-get update \
-  && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends mysql-client-core-5.5 vim-nox build-essential autoconf curl git wget automake libtool mysql-client gengetopt \
-  && gem update
+RUN apt-get update -qq \
+  && apt-get install -y --no-install-recommends bioperl bioperl-run libexpat-dev gengetopt
 
 #####################
 #      BioPerl      #
