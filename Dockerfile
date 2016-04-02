@@ -56,17 +56,6 @@ RUN mkdir -p /usr/src/guidance \
   && cd /usr/src/guidance/guidance.v2.01 \
   && make -j"$(nproc)"
 
-#####################
-#    fastcodeml     #
-#####################
-
-RUN mkdir -p /usr/src/fastcodeml \
-  && curl -SL "ftp://ftp.vital-it.ch/tools/FastCodeML/FastCodeML-1.1.0.tar.gz" \
-  | tar zxC /usr/src/fastcodeml \
-  && cd /usr/src/fastcodeml/FastCodeML-1.1.0 \
-  && mv fast /usr/bin/ \
-  && rm -rf /usr/src/fastcodeml
-
 ##########################
 #       DNDSTolls        #
 ##########################
