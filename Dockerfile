@@ -35,7 +35,7 @@ RUN mkdir -p /usr/src/paml \
   && mv mcmctree /usr/bin/ \
   && mv pamp /usr/bin/ \
   && mv yn00 /usr/bin/ \
-  && rm -rf /usr/src/paml
+  && rm -rf /usr/src
 
 # ####################
 # #    Muscle        #
@@ -66,7 +66,7 @@ RUN mkdir -p /usr/src/dndstools \
   && mv cdmw.py /usr/local/bin/ \
   && chmod +x mlc2csv.py \
   && mv mlc2csv.py /usr/local/bin/ \
-  && rm -rf /usr/src/dndstools
+  && rm -rf /usr/src
 
 #####################
 #      PhyML        #
@@ -81,7 +81,7 @@ RUN mkdir -p /usr/src/phyml \
   && ./configure \
   && make -j"$(nproc)" \
   && mv src/phyml /usr/local/bin \
-  && rm -rf /usr/src/phyml
+  && rm -rf /usr/src
 
 #####################
 #       mafft       #
@@ -95,7 +95,7 @@ RUN mkdir -p /usr/src/mafft \
   && cd /usr/src/mafft/mafft-$MAFFT_VERSION-with-extensions/core \
   && make -j"$(nproc)" \
   && make install \
-  && rm -rf /usr/src/mafft
+  && rm -rf /usr/src
 
 #####################
 #      Gblocks      #
@@ -106,30 +106,26 @@ RUN mkdir -p /usr/src/gblocks \
   | tar xvzC /usr/src/gblocks \
   && cd /usr/src/gblocks/Gblocks_0.91b \
   && cp Gblocks /usr/local/bin \
-  && rm -rf /usr/src/gblocks
+  && rm -rf /usr/src
 
 #####################
 # fastcodeml-source #
 #####################
 
+ENV MATH_LIB_NAMES openblas;lapack
+COPY fast_build_config.txt /usr/src/CMakeLists.txt
 RUN apt-get install -y --no-install-recommends \
     gfortran cmake-curses-gui libopenblas-dev \
-    libopenblas-base liblapack-dev libnlopt-dev libboost-all-dev
-
-ENV MATH_LIB_NAMES openblas;lapack
-RUN mkdir -p /usr/src \
-  && cd /usr/src \
-  && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
-  && cd fastcodeml
-
-COPY fast_build_config.txt /usr/src/fastcodeml/CMakeLists.txt
-
-RUN cd /usr/src/fastcodeml \
-  && cmake . \
-  && make -j"$(nproc)" \
-  && mv fast /usr/bin/ \
-  && rm -rf /usr/src/fastcodeml
+    libopenblas-base liblapack-dev libnlopt-dev libboost-all-dev \
+    && mkdir -p /usr/src \
+    && cd /usr/src \
+    && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
+    && cd fastcodeml \
+    && cp ../CMakeLists.txt . \
+    && cmake . \
+    && make -j"$(nproc)" \
+    && mv fast /usr/bin/ \
+    && rm -rf /usr/src
 #####################
 
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
