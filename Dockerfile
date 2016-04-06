@@ -4,7 +4,7 @@ ENV TIMESTAMP 24-03-2016
 
 
 # Additional packages
-RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list' &&\
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list &&\
     apt-get update -qq &&\
     apt-get install -y --no-install-recommends r-base bioperl bioperl-run libexpat-dev gengetopt
 
