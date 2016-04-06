@@ -54,6 +54,8 @@ RUN mkdir -p /usr/src/guidance \
   && curl -SL "http://guidance.tau.ac.il/ver2/guidance.v2.01.tar.gz" \
   | tar xvzC /usr/src/guidance/ \
   && cd /usr/src/guidance/guidance.v2.01 \
+  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT_COS_GUIDANCE2.pl \
+  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT/COS.pl \
   && make -j"$(nproc)"
 
 ##########################
@@ -128,4 +130,4 @@ RUN apt-get install -y --no-install-recommends \
     && rm -rf /usr/src
 #####################
 
-RUN apt-get purge && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
