@@ -2,9 +2,11 @@ FROM anzaika/ruby
 
 ENV TIMESTAMP 24-03-2016
 
+
 # Additional packages
-RUN apt-get update -qq \
-  && apt-get install -y --no-install-recommends bioperl bioperl-run libexpat-dev gengetopt
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list' &&\
+    apt-get update -qq &&\
+    apt-get install -y --no-install-recommends r-base bioperl bioperl-run libexpat-dev gengetopt
 
 # Installing BioPerl this way is very slow and I even don't know if it's the right way
 # #####################
@@ -16,6 +18,12 @@ RUN apt-get update -qq \
 #   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Text::Shellwords' \
 #   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bundle::LWP' \
 #   && PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install Bio::SeqIO'
+
+#####################
+#   Bioconductor    #
+#####################
+
+RUN R -e "source("https://bioconductor.org/biocLite.R");biocLite("qvalue")"
 
 #####################
 #       PAML        #
