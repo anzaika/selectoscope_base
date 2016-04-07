@@ -5,6 +5,8 @@ ENV TIMESTAMP 24-03-2016
 
 # Additional packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list &&\
+    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 &&\
+    gpg -a --export E084DAB9 | sudo apt-key add - &&\
     apt-get update -qq &&\
     apt-get install -y --no-install-recommends r-base bioperl bioperl-run libexpat-dev gengetopt
 
@@ -23,7 +25,7 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sour
 #   Bioconductor    #
 #####################
 
-RUN R -e "source("https://bioconductor.org/biocLite.R");biocLite("qvalue")"
+RUN R -e "source('https://bioconductor.org/biocLite.R');biocLite('qvalue')"
 
 #####################
 #       PAML        #
