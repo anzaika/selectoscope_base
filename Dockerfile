@@ -1,7 +1,6 @@
 FROM anzaika/ruby
 
-ENV TIMESTAMP 24-03-2016
-
+ENV TIMESTAMP 8-05-2016
 
 # Additional packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list &&\
