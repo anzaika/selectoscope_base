@@ -136,6 +136,7 @@ RUN apt-get install -y --no-install-recommends \
     && cd /usr/src \
     && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
     && cd fastcodeml \
+    && git reset --hard f00fdf2 \
     && cp ../CMakeLists.txt . \
     && cmake . \
     && make -j"$(nproc)" \
