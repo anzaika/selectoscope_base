@@ -9,6 +9,10 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sour
     apt-get update -qq &&\
     apt-get install -y --no-install-recommends r-base bioperl bioperl-run libexpat-dev gengetopt
 
+RUN curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash - &&\
+    apt-get install -y nodejs &&\
+    npm install webpack webpack-dev-server -g
+
 # Installing BioPerl this way is very slow and I even don't know if it's the right way
 # #####################
 # #      BioPerl      #
