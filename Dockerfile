@@ -139,6 +139,7 @@ RUN mkdir -p /usr/src/openblas &&\
 # fastcodeml-source #
 #####################
 ENV MATH_LIB_NAMES openblas;lapack
+ENV BLAS_LIB_DIR /opt/OpenBLAS
 COPY fast_build_config.txt /usr/src/CMakeLists.txt
 RUN apt-get install -y --no-install-recommends \
     gfortran cmake-curses-gui \
