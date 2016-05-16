@@ -124,14 +124,25 @@ RUN mkdir -p /usr/src/gblocks \
   && rm -rf /usr/src
 
 #####################
+#     OpenBLAS      #
+#####################
+RUN mkdir -p /usr/src/openblas &&\
+    cd /usr/src/openblas &&\
+    git clone https://github.com/xianyi/OpenBLAS.git &&\
+    cd OpenBLAS &&\
+    make -j"$(nproc)" USE_THREAD=0 &&\
+    make install &&\
+    cd / &&\
+    rm -rf /usr/src/openblas
+
+#####################
 # fastcodeml-source #
 #####################
-
 ENV MATH_LIB_NAMES openblas;lapack
 COPY fast_build_config.txt /usr/src/CMakeLists.txt
 RUN apt-get install -y --no-install-recommends \
-    gfortran cmake-curses-gui libopenblas-dev \
-    libopenblas-base liblapack-dev libnlopt-dev libboost-all-dev \
+    gfortran cmake-curses-gui \
+    liblapack-dev libnlopt-dev libboost-all-dev \
     && mkdir -p /usr/src \
     && cd /usr/src \
     && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
