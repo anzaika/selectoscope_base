@@ -5,11 +5,11 @@ ENV TIMESTAMP 22-07-2016
 # Additional packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list &&\
     gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 &&\
-    gpg -a --export E084DAB9 | sudo apt-key add - &&\
+    gpg -a --export E084DAB9 | apt-key add - &&\
     apt-get update -qq &&\
     apt-get install -y --no-install-recommends r-base bioperl bioperl-run libexpat-dev gengetopt
 
-RUN curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash - &&\
+RUN curl --silent --location https://deb.nodesource.com/setup_4.x | bash - &&\
     apt-get install -y nodejs &&\
     npm install webpack webpack-dev-server -g
 
