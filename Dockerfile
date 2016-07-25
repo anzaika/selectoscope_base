@@ -87,25 +87,27 @@ RUN mkdir -p /usr/src/dndstools \
 #      PhyML        #
 #####################
 
-RUN mkdir -p /usr/src/beagle &&\
-    cd /usr/src &&\
-    git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git beagle &&\
-    cd beagle &&\
-    ./autogen.sh &&\
-    ./configure --prefix=$HOME &&\
-    make install &&\
-    rm -rf /usr/src/beagle
-
-RUN mkdir -p /usr/src/phyml \
-  && cd /usr/src \
-  && git clone https://github.com/stephaneguindon/phyml.git\
-  && cd phyml \
-  && sh ./autogen.sh \
-  && ./configure \
-  && make -j"$(nproc)" \
-  && mv src/phyml /usr/local/bin \
-  && rm -rf /usr/src
-
+# RUN mkdir -p /usr/src/beagle &&\
+#     cd /usr/src &&\
+#     git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git beagle &&\
+#     cd beagle &&\
+#     apt-get -y install openjdk-8-jdk &&\
+#     ./autogen.sh &&\
+#     ./configure --prefix=$HOME &&\
+#     make install &&\
+#     rm -rf /usr/src/beagle
+#
+# RUN mkdir -p /usr/src/phyml \
+#   && cd /usr/src \
+#   && git clone https://github.com/stephaneguindon/phyml.git\
+#   && cd phyml \
+#   && git checkout tags/v3.2.0 \
+#   && sh ./autogen.sh \
+#   && ./configure \
+#   && make -j"$(nproc)" \
+#   && mv src/phyml /usr/local/bin \
+#   && rm -rf /usr/src
+#
 #####################
 #       mafft       #
 #####################
