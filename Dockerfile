@@ -48,7 +48,7 @@ RUN mkdir -p /usr/src/paml \
   && mv mcmctree /usr/bin/ \
   && mv pamp /usr/bin/ \
   && mv yn00 /usr/bin/ \
-  && rm -rf /usr/src
+  && rm -rf /usr/src/paml
 
 # ####################
 # #    Muscle        #
@@ -63,13 +63,15 @@ RUN mkdir -p /usr/src/paml \
 #####################
 #      Guidance     #
 #####################
-RUN mkdir -p /usr/src/guidance \
-  && curl -SL "http://guidance.tau.ac.il/ver2/guidance.v2.01.tar.gz" \
-  | tar xvzC /usr/src/guidance/ \
-  && cd /usr/src/guidance/guidance.v2.01 \
-  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT_COS_GUIDANCE2.pl \
-  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT/COS.pl \
-  && make -j"$(nproc)"
+RUN mkdir -p /usr/src/guidance &&\
+  cd /usr/src/guidance &&\
+  curl -SL "http://guidance.tau.ac.il/ver2/guidance.v2.01.tar.gz" \
+  | tar xvzC /usr/src/guidance/ &&\
+  cd /usr/src/guidance/guidance.v2.01 &&\
+  sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT_COS_GUIDANCE2.pl &&\
+  sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT/COS.pl &&\
+  make -j"$(nproc)" &&\
+  rm -rf /usr/src/guidance
 
 ##########################
 #       DNDSTolls        #
@@ -81,33 +83,33 @@ RUN mkdir -p /usr/src/dndstools \
   && mv cdmw.py /usr/local/bin/ \
   && chmod +x mlc2csv.py \
   && mv mlc2csv.py /usr/local/bin/ \
-  && rm -rf /usr/src
+  && rm -rf /usr/src/dndstools
 
 #####################
 #      PhyML        #
 #####################
 
-# RUN mkdir -p /usr/src/beagle &&\
-#     cd /usr/src &&\
-#     git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git beagle &&\
-#     cd beagle &&\
-#     apt-get -y install openjdk-8-jdk &&\
-#     ./autogen.sh &&\
-#     ./configure --prefix=$HOME &&\
-#     make install &&\
-#     rm -rf /usr/src/beagle
-#
-# RUN mkdir -p /usr/src/phyml \
-#   && cd /usr/src \
-#   && git clone https://github.com/stephaneguindon/phyml.git\
-#   && cd phyml \
-#   && git checkout tags/v3.2.0 \
-#   && sh ./autogen.sh \
-#   && ./configure \
-#   && make -j"$(nproc)" \
-#   && mv src/phyml /usr/local/bin \
-#   && rm -rf /usr/src
-#
+RUN mkdir -p /usr/src/beagle &&\
+    cd /usr/src &&\
+    git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git beagle &&\
+    cd /usr/src/beagle &&\
+    apt-get -y install openjdk-8-jdk checkinstall &&\
+    ./autogen.sh &&\
+    ./configure &&\
+    make &&\
+    make install &&\
+    rm -rf /usr/src/beagle
+
+RUN mkdir -p /usr/src/phyml &&\
+  cd /usr/src &&\
+  git clone https://github.com/anzaika/phyml.git &&\
+  cd /usr/src/phyml &&\
+  sh ./autogen.sh &&\
+  sh ./configure &&\
+  make -j"$(nproc)" &&\
+  mv src/phyml /usr/local/bin &&\
+  rm -rf /usr/src/phyml
+
 #####################
 #       mafft       #
 #####################
