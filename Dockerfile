@@ -7,9 +7,9 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sour
     gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 &&\
     gpg -a --export E084DAB9 | apt-key add - &&\
     apt-get update -qq &&\
-    apt-get install -y --no-install-recommends r-base bioperl bioperl-run libexpat-dev gengetopt
+    apt-get install -y --no-install-recommends r-base bioperl apt-utils bioperl-run libexpat-dev gengetopt
 
-RUN curl --silent --location https://deb.nodesource.com/setup_4.x | bash - &&\
+RUN curl --silent --location https://deb.nodesource.com/setup_6.x | bash - &&\
     apt-get install -y nodejs &&\
     npm install webpack webpack-dev-server -g
 
