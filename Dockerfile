@@ -65,13 +65,12 @@ RUN mkdir -p /usr/src/paml \
 #####################
 RUN mkdir -p /usr/src/guidance &&\
   cd /usr/src/guidance &&\
-  curl -SL "http://guidance.tau.ac.il/ver2/guidance.v2.01.tar.gz" \
+  curl -SL "https://github.com/anzaika/guidance/archive/v2.01.tar.gz" \
   | tar xvzC /usr/src/guidance/ &&\
   cd /usr/src/guidance/guidance.v2.01 &&\
   sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT_COS_GUIDANCE2.pl &&\
   sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT/COS.pl &&\
-  make -j"$(nproc)" &&\
-  rm -rf /usr/src/guidance
+  make -j"$(nproc)"
 
 ##########################
 #       DNDSTolls        #
@@ -122,7 +121,7 @@ RUN mkdir -p /usr/src/mafft \
   && cd /usr/src/mafft/mafft-$MAFFT_VERSION-with-extensions/core \
   && make -j"$(nproc)" \
   && make install \
-  && rm -rf /usr/src
+  && rm -rf /usr/src/mafft
 
 #####################
 #      Gblocks      #
@@ -133,7 +132,7 @@ RUN mkdir -p /usr/src/gblocks \
   | tar xvzC /usr/src/gblocks \
   && cd /usr/src/gblocks/Gblocks_0.91b \
   && cp Gblocks /usr/local/bin \
-  && rm -rf /usr/src
+  && rm -rf /usr/src/gblocks
 
 #####################
 # fastcodeml-source #
@@ -144,7 +143,6 @@ COPY fast_build_config.txt /usr/src/CMakeLists.txt
 RUN apt-get install -y --no-install-recommends \
     gfortran cmake-curses-gui libopenblas-dev \
     libopenblas-base liblapack-dev libnlopt-dev libboost-all-dev \
-    && mkdir -p /usr/src \
     && cd /usr/src \
     && git clone https://gitlab.isb-sib.ch/phylo/fastcodeml.git \
     && cd fastcodeml \
@@ -153,7 +151,7 @@ RUN apt-get install -y --no-install-recommends \
     && cmake . \
     && make -j"$(nproc)" \
     && mv fast /usr/bin/ \
-    && rm -rf /usr/src
+    && rm -rf /usr/src/fastcodeml
 #####################
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
