@@ -67,9 +67,9 @@ RUN mkdir -p /usr/src/guidance \
   && cd /usr/src/guidance \
   && wget "https://github.com/anzaika/guidance/archive/v2.01.tar.gz" \
   && tar xvf v2.01.tar.gz \
-  && cd guidance-2.01 \
-  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT_COS_GUIDANCE2.pl \
-  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance.v2.01/www/Guidance/exec/HoT/COS.pl \
+  && cd /usr/src/guidance/guidance-2.01 \
+  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance-2.01/www/Guidance/exec/HoT_COS_GUIDANCE2.pl \
+  && sed -i 's/time\ -p//g' /usr/src/guidance/guidance-2.01/www/Guidance/exec/HoT/COS.pl \
   && make -j"$(nproc)"
 
 ##########################
