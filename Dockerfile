@@ -1,6 +1,6 @@
 FROM anzaika/ruby
 
-ENV TIMESTAMP 22-07-2016
+ENV TIMESTAMP 17-09-2016
 
 # Additional packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list &&\
