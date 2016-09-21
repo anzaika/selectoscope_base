@@ -153,4 +153,16 @@ RUN apt-get install -y --no-install-recommends \
     && rm -rf /usr/src/fastcodeml
 #####################
 
+#####################
+# TCoffee
+#####################
+ENV USER_BIN /usr/bin
+RUN mkdir -p /usr/src/tcoffee \
+  git clone git@github.com:cbcrg/tcoffee.git /usr/src/tcoffee &&\
+  cd /usr/src/tcoffee/compile &&\
+  make -j"$(nproc)" t_coffee \
+  rm -rf /usr/src/tcoffee
+#####################
+
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
