@@ -157,10 +157,9 @@ RUN apt-get install -y --no-install-recommends \
 # TCoffee
 #####################
 ENV USER_BIN /usr/bin
-RUN mkdir -p /usr/src/tcoffee \
-  git clone git@github.com:cbcrg/tcoffee.git /usr/src/tcoffee &&\
+RUN git clone https://github.com/cbcrg/tcoffee.git /usr/src/tcoffee &&\
   cd /usr/src/tcoffee/compile &&\
-  make -j"$(nproc)" t_coffee \
+  make -j"$(nproc)" t_coffee &&\
   rm -rf /usr/src/tcoffee
 #####################
 
