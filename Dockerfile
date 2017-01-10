@@ -1,6 +1,6 @@
 FROM anzaika/ruby
 
-ENV TIMESTAMP 17-09-2016
+ENV TIMESTAMP 10-01-2017
 
 # Additional packages
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list &&\
@@ -158,9 +158,9 @@ RUN apt-get install -y --no-install-recommends \
 #####################
 ENV USER_BIN /usr/bin
 RUN git clone https://github.com/cbcrg/tcoffee.git /usr/src/tcoffee &&\
-  cd /usr/src/tcoffee/compile &&\
-  make -j"$(nproc)" t_coffee &&\
-  rm -rf /usr/src/tcoffee
+    cd /usr/src/tcoffee/compile &&\
+    make -j"$(nproc)" t_coffee &&\
+    rm -rf /usr/src/tcoffee
 #####################
 
 
