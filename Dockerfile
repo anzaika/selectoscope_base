@@ -35,7 +35,7 @@ RUN R -e "source('https://bioconductor.org/biocLite.R');biocLite('qvalue')"
 #####################
 
 RUN mkdir -p /usr/src/paml \
-  && curl -SL "http://abacus.gene.ucl.ac.uk/software/paml4.9b.tgz" \
+  && curl -SL "http://abacus.gene.ucl.ac.uk/software/paml4.9c.tgz" \
   | tar zxC /usr/src/paml \
   && cd /usr/src/paml/paml4.9c/src \
   && make -j"$(nproc)" \
